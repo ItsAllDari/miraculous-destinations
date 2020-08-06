@@ -14,13 +14,13 @@ with open('LICENSE.md') as f:
     LICENSE = f.read()
 
 setup(
-    name='django-auth-template',
+    name='miraculous-destinations',
     version='0.1.0',
-    description='GA SEI Boston Django Authentication Template',
+    description='Weather Application',
     long_description=README,
-    author='<author>',
-    author_email='<email>',
-    url='https://git.generalassemb.ly/ga-wdi-boston/django-auth-template',
+    user='<user>',
+    user_email='<email>',
+    url='https://github.com/ItsAllDari/miraculous-destinations',
     license=LICENSE,
     packages=find_packages(exclude=('tests', 'docs'))
 )
