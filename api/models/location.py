@@ -16,10 +16,10 @@ class Location(models.Model):
 
   def __str__(self):
     # This must return a string
-    return f"The weather of '{self.city, self.state}' is."
+    return f"The weather of '{self.city, self.state}' is {city_weather.temperature}"
 
   def as_dict(self):
-    """Returns dictionary version of Mango models"""
+    """Returns dictionary version of Location models"""
     return {
         'id': self.id,
         'city': self.city,
