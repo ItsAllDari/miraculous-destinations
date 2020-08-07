@@ -16,7 +16,7 @@ class Location(models.Model):
 
   def __str__(self):
     # This must return a string
-    return f"The weather of '{self.city, self.state}' is {city_weather.temperature}"
+    return f"The weather of '{self.city, self.state}' is {self.country}"
 
   def as_dict(self):
     """Returns dictionary version of Location models"""

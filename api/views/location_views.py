@@ -6,8 +6,8 @@ from rest_framework import generics, status
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user, authenticate, login, logout
 from django.middleware.csrf import get_token
-from django.shortcuts import render
-import requests
+# from django.shortcuts import render
+# import requests
 
 from ..models.location import Location
 from ..serializers import LocationSerializer, UserSerializer
@@ -36,22 +36,22 @@ class Locations(generics.ListCreateAPIView):
       else:
         return Response(locaton.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def index(request):
-      url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&APPID=d5f16a9cc8b9f63fa4160694e460b64d'
-      city = 'Boston'
-
-      input = requests.get(url.format(city)).json()
-
-      city_weather = {
-          'city': city,
-          'temperature': input['main']['temp'],
-          'description': input['weather'][0]['description'],
-          'icon': input['weather'][0]['icon']
-      }
-      # url = api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid=d5f16a9cc8b9f63fa4160694e460b64d
-      print(city_weather)
-      context = {'city_weather' : city_weather}
-      return render(request, 'weather/weather.html', context)
+    # def index(request):
+    #   url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&APPID=d5f16a9cc8b9f63fa4160694e460b64d'
+    #   city = 'Boston'
+    #
+    #   input = requests.get(url.format(city)).json()
+    #
+    #   city_weather = {
+    #       'city': city,
+    #       'temperature': input['main']['temp'],
+    #       'description': input['weather'][0]['description'],
+    #       'icon': input['weather'][0]['icon']
+    #   }
+    #   # url = api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid=d5f16a9cc8b9f63fa4160694e460b64d
+    #   print(city_weather)
+    #   context = {'city_weather' : city_weather}
+    #   return render(request, 'weather/weather.html', context)
 
 class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=(IsAuthenticated,)
@@ -59,17 +59,17 @@ class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
         """Show request"""
         location = get_object_or_404(Location, pk=pk)
         data = LocationSerializer(location).data
-        # Only want to show owned mangos?
+        # Only want to show owned locations?
         # if not request.user.id == data['owner']:
-        #     raise PermissionDenied('Unauthorized, you do not own this mango')
+        #     raise PermissionDenied('Unauthorized, you do not own this location')
         return Response(data)
 
     def delete(self, request, pk):
         """Delete request"""
-        mango = get_object_or_404(Mango, pk=pk)
-        if not request.user.id == mango['owner']:
-            raise PermissionDenied('Unauthorized, you do not own this mango')
-        mango.delete()
+        location = get_object_or_404(Location, pk=pk)
+        if not request.user.id == location.owner.id:
+            raise PermissionDenied('Unauthorized, you do not own this location')
+        location.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def partial_update(self, request, pk):
@@ -78,11 +78,11 @@ class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
         if request.data['location'].get('owner', False):
             del request.data['location']['owner']
 
-        # Locate Mango
+        # Locate Location
         location = get_object_or_404(Location, pk=pk)
         # Check if user is  the same
-        if not request.user.id == mango['owner']:
-            raise PermissionDenied('Unauthorized, you do not own this mango')
+        if not request.user.id == location['owner']:
+            raise PermissionDenied('Unauthorized, you do not own this location')
 
         # Add owner to data object now that we know this user owns the resource
         request.data['location']['owner'] = request.user.id

@@ -40,15 +40,5 @@ class Migration(migrations.Migration):
                 ('color', models.CharField(max_length=100)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
-        ),
-        migrations.CreateModel(
-        name='Location',
-        fields=[
-          ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-          ('city', models.CharField(max_length=100)),
-          ('state', models.CharField(max_length=2)),
-          ('country', models.CharField(max_length=3)),
-          ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-        ],
-      )
+        )
     ]

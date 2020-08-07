@@ -11,7 +11,7 @@ urlpatterns = [
     path('sign-in/', SignIn.as_view(), name='sign-in'),
     path('sign-out/', SignOut.as_view(), name='sign-out'),
     path('change-pw/', ChangePassword.as_view(), name='change-pw'),
-    path('', Locations.index),
+    # path('', Locations.index),
     path('locations/', Locations.as_view(), name='locations'),
     path('locations/<int:pk>/', LocationDetail.as_view(), name='location_detail')
 ]
