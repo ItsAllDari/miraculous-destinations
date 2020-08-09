@@ -13,7 +13,6 @@ from ..models.location import Location
 from ..serializers import LocationSerializer, UserSerializer
 
 class Locations(generics.ListCreateAPIView):
-    authentication_classes = ()
     permission_classes = (IsAuthenticated,)
     def get(self, request):
       """Index request"""
