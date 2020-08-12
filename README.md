@@ -4,6 +4,7 @@
 <a href="https://github.com/ItsAllDari/miraculous-destinations-client">Front End Github</a>
 
 <h2>Entity Relationship Diagram (ERD)</h2>
+
 ![Screen Shot 2020-08-12 at 12 19 46 AM](https://user-images.githubusercontent.com/58965588/89975464-cf71b580-dc33-11ea-92a8-00a8c5e3c623.png)
 
 
